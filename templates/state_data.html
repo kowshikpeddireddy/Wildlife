@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4A00E0, #8E2DE2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            color: #333333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        h2, h3 {
+            color: #333333;
+            margin-top: 30px;
+        }
+
+        p {
+            color: #555555;
+            margin: 10px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        li {
+            margin-top: 5px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>State Data</h1>
+        {% if state_data %}
+            <h2><b>State Name: {{ state_data[0] }}</b></h2>
+            <p style="color:black"><b>State Area: {{ state_data[1] }}</b></p>
+            <p style="color:black"><b>No of Wild Life Sanctuaries: {{ state_data[2] }}</b></p>
+            <p style="color:black"><b>Area of WildLife Sanctuaries: {{ state_data[3] }}</b></p>
+            {% if state_data[4] %}
+                <h3>Representatives:</h3>
+                <ul>
+                    {% for representative in state_data[4].split(',') %}
+                        <li>{{ representative }}</li>
+                    {% endfor %}
+                </ul>
+                <img src="static/aboutforest4.png" alt="Forest Image 1" width="400">
+                <img src="static/aboutforest5.png" alt="Forest Image 2" width="400">
+            {% endif %}
+        {% else %}
+            <p>No data available for the selected state.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

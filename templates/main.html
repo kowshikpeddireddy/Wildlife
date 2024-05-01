@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <style>
+        body {
+            background-image: url({{ url_for('static', filename='images/wil.jpg') }});
+            background-color: #f5f5f5; /* Light gray background */
+            font-family: Arial, sans-serif; /* Font family */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.5s ease; /* Smooth transition */
+        }
+        .white-bg {
+            background-color: #ffffff !important; /* Override background color to white */
+        }
+        h2 {
+            text-align: center;
+            color: #ffff; /* Dark gray text color */
+            margin-bottom: 30px; /* Add some space below the heading */
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+            padding: 15px; /* Increase padding for larger button */
+            border: 2px solid #006400; /* Dark green border */
+            border-radius: 8px; /* Rounded corners */
+            background-color: #fff; /* White background */
+            color: #006400; /* Dark green text color */
+            font-size: 18px; /* Larger font size */
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transition */
+            width: 80%; /* Set width to 80% of parent */
+            max-width: 300px; /* Limit maximum width */
+        }
+        input[type="file"]:hover {
+            background-color: #006400; /* Dark green background on hover */
+            color: #fff; /* White text color on hover */
+        }
+        input[type="submit"] {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 40px; /* Increase padding for larger button */
+            background-color: #006400; /* Dark green background */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer;
+            font-size: 18px; /* Larger font size */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        input[type="submit"]:hover {
+            background-color: #004d00; /* Darker green background on hover */
+        }
+        .predicted-animal {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 700px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .predicted-animal img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .predicted-animal h2 {
+            color: #006400;
+            margin-bottom: 10px;
+        }
+        .predicted-animal p {
+            color: #333;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload an Image of an Animal</h2>
+    <form action="/main" method="post" enctype="multipart/form-data">
+        <label for="file-upload" class="custom-file-upload">
+            <input id="file-upload" type="file" name="file"></label>
+        <input type="submit" value="Upload">
+    </form>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    {% if image %}
+        <div class="predicted-animal">
+            <img src="{{ image }}" alt="Uploaded Image">
+            <h2>Predicted Animal: {{ predicted_class }}</h2>
+            <p><strong>Details:</strong></p>
+            <ul>
+                {% for line in details.split('\n') %}
+                    <li>{{ line }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <script>
+            // JavaScript to add white background after prediction
+            document.body.classList.add('white-bg');
+        </script>
+    {% endif %}
+</body>
+</html>

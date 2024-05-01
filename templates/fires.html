@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fires Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8QOjdF1XmHnz262OcsKkDCm7UUe4vuYhTYN9yiefskaw3nId_sDSSzA76FTT4Sz4gdFS0TEhN8NeGDfX_k2U45gO6ks5hn6F7k5XpbchQqnYmRRMDhTN4E0IZtJIAKfCjp1xqfer_gtXdVdGUo_o-XdmpYXkzGvsZiAEe6lgmBjLRhA70i0QDZ9BD_G5a/s4240/karsten-winegeart-XGGmhortdtA-unsplash.jpg'); /* Background image URL */
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Add transparency to the container background */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            color: #555555;
+            margin-top: 10px;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+            display: none; /* Hide the default file input */
+        }
+
+        .custom-file-upload {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
+        img.uploaded-image {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+            width: 70%; /* Decrease width */
+            margin-left: auto; /* Align center */
+            margin-right: auto;
+        }
+
+        img.uploaded-image:hover {
+            transform: scale(1.1);
+        }
+
+        .additional-info {
+            margin-top: 20px;
+        }
+
+        .additional-info img {
+            margin-top: 10px;
+            margin-right: 10px;
+            width: 250px; /* Increase size */
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Fires Prediction</h1>
+    <form method="post" enctype="multipart/form-data" action="/fires">
+        <!-- Hidden default file input -->
+        <input type="file" name="file" id="file-upload" accept="image/*" style="display: none;">
+        <!-- Custom file upload button -->
+        <label for="file-upload" class="custom-file-upload">Choose File</label>
+        <input type="submit" value="Predict" class="custom-submit-button">
+    </form>
+
+    {% if image %}
+        <img src="{{ image }}" alt="Uploaded Image" class="uploaded-image">
+        {% if prediction_message %}
+            <p>{{ prediction_message }}</p>
+        {% endif %}
+        <div class="additional-info">
+            <h2>Additional Information</h2>
+            <p>{{ fire_details }}</p>
+            <!-- Adjusted size of the images -->
+            <img src="static/about forest1.png" alt="Forest Image 1" style="width: 250px;">
+            <img src="static/about forest2.png" alt="Forest Image 2" style="width: 250px;">
+            <img src="static/about forest3.png" alt="Forest Image 3" style="width: 250px;">
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
